@@ -16,7 +16,12 @@ year = {2024}
 }
 ```
 
-# CrazySim Setup
+## CrazySim Setup
+
+Switch to the sitl-release branch and install.
+```bash
+pip install -r Requirements.txt
+```
 
 ## Supported Platforms
 This simulator is currently only supported on Ubuntu systems with at least 20.04. This is primarily a requirement from Gazebo Sim. The simulator was built, tested, and verified on 22.04 with Gazebo Garden.
