@@ -1,6 +1,6 @@
 [submodule "crazyflie-firmware"]
 	path = crazyflie-firmware
-	url = https://github.com/llanesc/crazyflie-firmware.git
+	url = https://github.com/AkashJohnSubash/crazyflie-firmware.git
 	branch = sitl-release
 [submodule "crazyflie-lib-python"]
 	path = crazyflie-lib-python
@@ -8,11 +8,11 @@
 	branch = sitl-release
 [submodule "ros2_ws/src/crazyflie_mpc"]
 	path = ros2_ws/src/crazyflie_mpc
-	url = https://github.com/llanesc/crazyflie_mpc.git
+	url = https://github.com/AkashJohnSubash/crazyflie_mpc.git
 	branch = main
 [submodule "ros2_ws/src/crazyswarm2"]
 	path = ros2_ws/src/crazyswarm2
-	url = https://github.com/llanesc/crazyswarm2.git
+	url = https://github.com/AkashJohnSubash/crazyswarm2.git
 	branch = sitl
 [submodule "ros2_ws/src/motion_capture_tracking"]
 	path = ros2_ws/src/motion_capture_tracking
