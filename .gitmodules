@@ -18,7 +18,3 @@
 	path = ros2_ws/src/motion_capture_tracking
 	url = https://github.com/IMRCLab/motion_capture_tracking.git
 	branch = ros2
-[submodule "ros2_ws/LocalPlanDrone"]
-	path = ros2_ws/LocalPlanDrone
-	url = git@github.com:AkashJohnSubash/LocalPlanDrone.git
-	branch = main_ros
