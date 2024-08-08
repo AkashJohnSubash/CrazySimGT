@@ -174,9 +174,9 @@ ros2 launch crazyflie launch.py backend:=cflib
 
 ### Start MPC code
 ### 
-Run the Crazyflie MPC demonstration with the code below. The argument `n_agents` can be modified for the number of agents in your environment. Additionally, the argument `--build_acados` can be defined to compile the Acados optimal control problem.
+Run the Crazyflie MPC demonstration with the code below.
 ```bash
-ros2 run crazyflie_mpc crazyflie_multiagent_mpc --n_agents=4 --build_acados
+ros2 run drone_mpc ocp_main
 ```
 
 Using the command line publisher we can command all vehicles to take off using MPC.

@@ -26,7 +26,7 @@ class LocalPlan(rclpy.node.Node):
         name = self.get_name()
         prefix = '/' + name
         self.is_connected = True
-        self.tracking = False
+        self.tracking = True
         self.odometry = Odometry()
         self.ocp = AcadosCustomOcp()
         self.control_queue = None
@@ -45,10 +45,10 @@ class LocalPlan(rclpy.node.Node):
                                             f'{prefix}/cmd_attitude_setpoint',
                                             10)
 
-        self.track_sub = self.create_subscription(Empty,
-                                                f'/all/mpc_trajectory',
-                                                tracking_cbk,
-                                                10)
+        # self.track_sub = self.create_subscription(Empty,
+        #                                         f'/all/mpc_trajectory',
+        #                                         tracking_cbk,
+        #                                         10)
 
 def argparse_init():
    '''Initialization for cmd line args'''
@@ -61,22 +61,20 @@ def argparse_init():
 def main():
     parser = argparse_init()
     args = parser.parse_args()
-    #custom_ocp = AcadosCustomOcp()
-    #custom_ocp.setup_acados_ocp()
 
     rclpy.init()
     mpc_node = LocalPlan()
     try:
-        if rclpy.ok():
-            mpc_node.get_logger().info('Beginning local planner, shut down with CTRL-C')
-            traj_sample, traj_ST, traj_U, traj_slack = plan_ocp(mpc_node.ocp)
+        mpc_node.get_logger().info('local planner node waiting for trajectory message')
+        while not(mpc_node.tracking) and rclpy.ok():
+            rclpy.spin(mpc_node)
+        traj_sample, traj_ST, traj_U, traj_slack = plan_ocp(mpc_node.ocp)
 
     except KeyboardInterrupt:
         mpc_node.get_logger().info('Keyboard interrupt, shutting down.\n')
 
     finally:
         mpc_node.get_logger().info('Shutting down mpc node.\n')
-
         mpc_node.destroy_node()
         rclpy.shutdown()
 

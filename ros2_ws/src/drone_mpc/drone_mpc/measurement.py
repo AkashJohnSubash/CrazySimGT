@@ -9,6 +9,7 @@ from drone_mpc.common import quatDecompress
 
 from crazyflie_interfaces.msg import LogDataGeneric, AttitudeSetpoint
 from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import Empty
 import tf_transformations
 
 deck_attached_event = Event()
