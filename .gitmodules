@@ -8,7 +8,7 @@
 	branch = sitl-release
 [submodule "ros2_ws/src/crazyflie_mpc"]
 	path = ros2_ws/src/crazyflie_mpc
-	url = https://github.com/AkashJohnSubash/crazyflie_mpc.git
+	url = https://github.com/llanesc/crazyflie_mpc.git
 	branch = main
 [submodule "ros2_ws/src/crazyswarm2"]
 	path = ros2_ws/src/crazyswarm2
