@@ -22,3 +22,7 @@
 	path = ros2_ws/src/LocalPlanDrone
 	url = git@github.com:AkashJohnSubash/LocalPlanDrone.git
 	branch = main_ros
+[submodule "crazyflie-clients-python"]
+	path = crazyflie-clients-python
+	url = /home/syscop/akash/CrazySimGT/crazyflie-clients-python
+	branch = sitl-release
