@@ -18,11 +18,11 @@
 	path = ros2_ws/src/motion_capture_tracking
 	url = https://github.com/IMRCLab/motion_capture_tracking.git
 	branch = ros2
-[submodule "ros2_ws/src/LocalPlanDrone"]
-	path = ros2_ws/src/LocalPlanDrone
+[submodule "ros2_ws/src/drone_mpc"]
+	path = ros2_ws/src/drone_mpc
 	url = git@github.com:AkashJohnSubash/LocalPlanDrone.git
-	branch = main_ros
+	branch = acados_ros
 [submodule "crazyflie-clients-python"]
 	path = crazyflie-clients-python
-	url = /home/syscop/akash/CrazySimGT/crazyflie-clients-python
+	url = https://github.com/llanesc/crazyflie-clients-python
 	branch = sitl-release
