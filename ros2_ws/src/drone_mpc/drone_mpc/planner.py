@@ -3,10 +3,11 @@ from time import time
 import casadi as ca
 
 from drone_mpc.common import *
+from drone_mpc.measurement import pub_setpoint
 
-def plan_ocp( ocp_wrapper):
+def plan_ocp( mpc_node):
     '''Motion control of AGV using OCPs'''
-
+    ocp_wrapper = mpc_node.ocp
     # dimensions
     nx = ocp_wrapper.nx
     nu = ocp_wrapper.nu
@@ -75,7 +76,9 @@ def plan_ocp( ocp_wrapper):
         mpc_iter = mpc_iter + 1
 
         zeta_N = ocp_wrapper.zeta_N
-
+        roll, pitch, yawRate, thrust_pwm = calc_thrust_setpoint(zeta_N[:, 1])
+        pub_setpoint(mpc_node, roll, pitch, yawRate, thrust_pwm)
+        #ocp_wrapper.attitude_setpoint_pub.publish(setpoint)
         print(f'\n Soln. {mpc_iter} s: {(np.round(ocp_wrapper.zeta_N[0, 0],2).T)} at {round(t0,2)} s\t')
 
     sqp_max_sec = round(np.array(times).max(), 3)

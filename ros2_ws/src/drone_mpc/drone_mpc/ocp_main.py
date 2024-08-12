@@ -18,11 +18,11 @@ from drone_mpc.planner import plan_ocp
 # from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 # TODO add ros node
 from drone_mpc.common import *
-from drone_mpc.measurement import pose_ros_cbk, vel_ros_cbk, tracking_cbk
+from drone_mpc.measurement import pose_ros_cbk, vel_ros_cbk, pub_setpoint
 
 class LocalPlan(rclpy.node.Node):
     def __init__(self):
-        super().__init__('cf_0')
+        super().__init__('cf_1')
         name = self.get_name()
         prefix = '/' + name
         self.is_connected = True
@@ -68,7 +68,7 @@ def main():
         mpc_node.get_logger().info('local planner node waiting for trajectory message')
         while not(mpc_node.tracking) and rclpy.ok():
             rclpy.spin(mpc_node)
-        traj_sample, traj_ST, traj_U, traj_slack = plan_ocp(mpc_node.ocp)
+        traj_sample, traj_ST, traj_U, traj_slack = plan_ocp(mpc_node)
 
     except KeyboardInterrupt:
         mpc_node.get_logger().info('Keyboard interrupt, shutting down.\n')

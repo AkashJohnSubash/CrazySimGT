@@ -49,7 +49,12 @@ ohm3 = ca.MX.sym('ohm3')
 ohm4 = ca.MX.sym('ohm4')
 
 # zeta_c = ca.vertcat(x, y, z, q1, q2, q3, q4, vx, vy, vz, wr, wp, wy)
-zeta_f = ca.vertcat(s, n, b, q1, q2, q3, q4, sDot, nDot, bDot, wr, wp, wy, vx, vy, vz, ohm1, ohm2, ohm3, ohm4)
+zeta_f = ca.vertcat(s, n, b,
+                    q1, q2, q3, q4,
+                    sDot, nDot, bDot,
+                    wr, wp, wy,
+                    vx, vy, vz,
+                    ohm1, ohm2, ohm3, ohm4)
 
 
 alpha1 = ca.MX.sym('alpha1')

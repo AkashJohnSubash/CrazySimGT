@@ -202,6 +202,7 @@ class AcadosCustomOcp:
         # u_0 = np.copy(U_REF)
         # print(f"DEBUG ctrl {u_0, self.zeta_0}")
         u_0, status = self.solve_for_x0(x0_bar = self.zeta_0)
+        # uncomment for numerical foward simulation
         self.zeta_0 = self.integrator.simulate(x=self.zeta_0, u=u_0)
         # print(f"DEBUG ctrl {u_0, self.zeta_0}")
         # Store state (entire horizon) and control (only u0) trajectories

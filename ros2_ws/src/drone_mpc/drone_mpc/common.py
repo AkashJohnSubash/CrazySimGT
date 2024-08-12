@@ -42,7 +42,7 @@ T_del = 0.02               # time between steps in seconds
 N = 50                     # number of shooting nodes
 Tf = N * T_del * 1
 
-Tsim = 3
+Tsim = 35
 Nsim = int(Tsim * N / Tf)
 
 
@@ -168,11 +168,12 @@ def eul2quat(eul):
 
     return [qw, qx, qy, qz]
 
-def krpm2pwm( Krpm):
+def krpm2pwm(KrpmAvg):
     '''Convert CF propellor angular speed into PWM values'''
-    pwm = ((Krpm*1000)-4070.3)/0.2685
+    return int(min(max(((KrpmAvg*1000)-4070.3)/0.2685, 0.0), 60000))
 
-    return pwm
+def Thrust2pwm(KrpmAvg):
+    return int(max(min(24.5307*(7460.8*np.sqrt(KrpmAvg) - 380.8359), 65535),0))
 
 M_SQRT1_2=0.70710678118654752440
 def quatDecompress(comp):
@@ -195,17 +196,20 @@ def quatDecompress(comp):
     return q_4
 
 
-def calc_thrust_setpoint(St_0, U_0):
-    # euler in deg from q1,      q2,       q3,       q4
-    eul_deg = quat2rpy([St_0[3], St_0[4], St_0[5], St_0[6]])
+def calc_thrust_setpoint(zeta_0):
+    # euler in deg from q1, q2, q3, q4
+    q1, q2, q3, q4 = zeta_0[3], zeta_0[4], zeta_0[5], zeta_0[6]
+    wy = zeta_0[12]
+    ohm1, ohm2, ohm3, ohm4 = zeta_0[16], zeta_0[17], zeta_0[18], zeta_0[19]
+    eul_deg = quat2rpy([q1, q2, q3, q4])
 
     roll_x  = eul_deg[0]                                            # Roll
     pitch_y  = eul_deg[1]                                           # Pitch
-    thrust_z  = krpm2pwm((U_0[0] + U_0[1]+ U_0[2]+ U_0[3])/4)       # convert average prop RPM to PWM
+    thrust_c  = krpm2pwm((ohm1 + ohm2+ ohm3+ ohm4)/4)       # convert average prop RPM to PWM
+    #thrust_c  = Thrust2pwm((ohm1 + ohm2+ ohm3+ ohm4)/4)
     roll_c   = roll_x + ROLL_TRIM
     pitch_c  = (pitch_y + PITCH_TRIM)                               # corrected values
-    thrust_c = int(min(max(thrust_z, 0.0), 60000))
-    yawrate = St_0[11] * 180 /np.pi                                 # r in deg/s
+    yawrate = wy * 180 /np.pi                                 # r in deg/s
 
     return roll_c, pitch_c, yawrate, thrust_c
 

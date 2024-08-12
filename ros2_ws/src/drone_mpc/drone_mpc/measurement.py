@@ -53,7 +53,6 @@ def deck_light_cbk(_, value_str):
 #     stabZ.start()
 
 
-
 def StabZ_cbk(timestamp, data, logconf):
     '''Callback function to decode state data from stateEstimateZ group 
      Transalational measurements in global, rotational in body frames'''
@@ -93,3 +92,11 @@ def vel_ros_cbk(self, msg: LogDataGeneric):
 
 def tracking_cbk(self, msg):
     self.tracking = True
+
+def pub_setpoint(node, roll, pitch, yaw_rate, thrust_pwm):
+    setpoint = AttitudeSetpoint()
+    setpoint.roll = roll
+    setpoint.pitch = pitch
+    setpoint.yaw_rate = yaw_rate
+    setpoint.thrust = thrust_pwm
+    node.cmd_pub.publish(setpoint)
