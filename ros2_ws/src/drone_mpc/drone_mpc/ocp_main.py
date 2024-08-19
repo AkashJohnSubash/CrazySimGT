@@ -26,7 +26,7 @@ class LocalPlan(rclpy.node.Node):
         name = self.get_name()
         prefix = '/' + name
         self.is_connected = True
-        self.tracking = True
+        self.tracking = False
         self.odometry = Odometry()
         self.ocp = AcadosCustomOcp()
         self.control_queue = None
